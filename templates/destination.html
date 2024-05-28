@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Выбор пункта назначения</title>
+</head>
+<body>
+    <h1>Выберите пункт назначения</h1>
+    <form method="post" action="/choose_destination"> 
+        <select name="destination" required>
+            {% for city in resort_cities %}
+                <option value="{{ city }}">{{ city }}</option>
+            {% endfor %}
+        </select>
+        <select name="transport_type" required>
+            {% for transport in transport_type %}
+                <option value="{{ transport }}">{{ transport }}</option>
+            {% endfor %}
+        </select>
+        <label for="travel_date">Travel date:</label>
+        <input type="date" id="travel_date" name="travel_date">
+        <br>
+        <button type="submit">Продолжить</button>
+    </form>
+</body>
+</html>
