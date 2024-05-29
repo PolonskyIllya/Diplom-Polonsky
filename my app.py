@@ -14,7 +14,7 @@ resort_cities = [
     "Дубай", "Канкун", "Бали", "Гавайи", "Майями", "Париж", "Рим", "Барселона", "Токио", "Сидней"
 ]
 
-transport_types = ["car", "plane"]
+transport_types = ["Поезд", "Самолет", "Автобус"]
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
