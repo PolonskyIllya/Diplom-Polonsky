@@ -2,24 +2,58 @@
 <html>
 <head>
     <title>Выбор пункта назначения</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .destination-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 500px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .btn-primary {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <h1>Выберите пункт назначения</h1>
-    <form method="post" action="/choose_destination"> 
-        <select name="destination" required>
-            {% for city in resort_cities %}
-                <option value="{{ city }}">{{ city }}</option>
-            {% endfor %}
-        </select>
-        <select name="transport_type" required>
-            {% for transport in transport_type %}
-                <option value="{{ transport }}">{{ transport }}</option>
-            {% endfor %}
-        </select>
-        <label for="travel_date">Travel date:</label>
-        <input type="date" id="travel_date" name="travel_date">
-        <br>
-        <button type="submit">Продолжить</button>
-    </form>
+    <div class="destination-container">
+        <h1 class="text-center mb-4">Выберите пункт назначения</h1>
+        <form method="post" action="/choose_destination">
+            <div class="form-group">
+                <label for="destination">Пункт назначения:</label>
+                <select id="destination" name="destination" class="form-control" required>
+                    {% for city in resort_cities %}
+                        <option value="{{ city }}">{{ city }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="transport_type">Тип транспорта:</label>
+                <select id="transport_type" name="transport_type" class="form-control" required>
+                    {% for transport in transport_type %}
+                        <option value="{{ transport }}">{{ transport }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="travel_date">Дата поездки:</label>
+                <input type="date" id="travel_date" name="travel_date" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Продолжить</button>
+        </form>
+    </div>
 </body>
 </html>
+

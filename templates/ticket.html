@@ -1,18 +1,44 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html>
 <head>
-    <title>Бронирование билета</title>
+    <title>Подтверждение бронирования</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .confirmation-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 600px;
+        }
+        .confirmation-details {
+            margin-bottom: 20px;
+        }
+        .thank-you {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Бронирование билета в {{ destination }}</h1>
-    <p>Тип транспорта: {{ transport_type.capitalize() }}</p>
-    <p>Дата путешествия: {{ travel_date }}</p>
-    <form method="post">
-        <label for="ticket_count">Количество билетов:</label>
-        <input type="number" id="ticket_count" name="ticket_count" min="1" required>
-        <br>
-        <button type="submit">Забронировать</button>
-    </form>
+    <div class="confirmation-container">
+        <h1 class="text-center mb-4">Подтверждение бронирования</h1>
+        <div class="confirmation-details">
+            <p>Вы забронировали <strong>{{ ticket_count }}</strong> билет в <strong>{{ destination }}</strong>.</p>
+            <p>Тип транспорта: <strong>{{ transport_type.capitalize() }}</strong></p>
+            <p>Дата путешествия: <strong>{{ travel_date }}</strong></p>
+            <p>Общая стоимость: <strong>{{ total_cost }} рублей</strong></p>
+        </div>
+        <p class="text-center thank-you">**Спасибо за бронирование!**</p>
+    </div>
 </body>
 </html>
 

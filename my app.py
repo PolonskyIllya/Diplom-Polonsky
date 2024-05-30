@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from datetime import date, timedelta
+# from models import db, User, ResortCity, TransportType
 
 
 app = Flask(__name__)
@@ -11,7 +12,7 @@ users = {
 
 # Список курортных городов
 resort_cities = [
-    "Дубай", "Канкун", "Бали", "Гавайи", "Майями", "Париж", "Рим", "Барселона", "Токио", "Сидней"
+    "Дубай", "Канкун", "Бали", "Гавайи", "Майями", "Париж", "Рим", "Барселона", "Токио", "Сидней", "Сен-Тропе", "Рио-де-Жанейро", "Тенерифе"
 ]
 
 transport_types = ["Поезд", "Самолет", "Автобус"]
