@@ -1,9 +1,16 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from datetime import date, timedelta
-# from models import db, User, ResortCity, TransportType
-
+from models import db, User, ResortCity, TransportType
+from flask_sqlalchemy import SQLAlchemy
+from config import Config
 
 app = Flask(__name__)
+app.config.from_object(Config)
+db = SQLAlchemy(app)
+
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    return send_from_directory('static', filename)
 
 # Словарь для хранения зарегистрированных пользователей
 users = {
@@ -52,3 +59,4 @@ def book_ticket(destination, transport_type, travel_date):
 
 if __name__ == '__main__':
     app.run(debug=True)
+

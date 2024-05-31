@@ -1,44 +1,48 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Подтверждение бронирования</title>
+    <title>Заказ билетов</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
         body {
-            background-color: #f8f9fa;
+            background-image: url('https://img.goodfon.ru/original/1920x1080/6/64/more-palmy-pliazh-tropiki-otdykh.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
         }
-        .confirmation-container {
-            background-color: white;
+        .ticket-container {
+            background-color: rgba(255, 255, 255, 0.8);
             padding: 40px;
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             width: 600px;
         }
-        .confirmation-details {
+        .form-group {
             margin-bottom: 20px;
         }
-        .thank-you {
-            font-size: 1.2rem;
-            font-weight: bold;
+        .btn-primary {
+            width: 100%;
         }
     </style>
 </head>
 <body>
-    <div class="confirmation-container">
-        <h1 class="text-center mb-4">Подтверждение бронирования</h1>
-        <div class="confirmation-details">
-            <p>Вы забронировали <strong>{{ ticket_count }}</strong> билет в <strong>{{ destination }}</strong>.</p>
-            <p>Тип транспорта: <strong>{{ transport_type.capitalize() }}</strong></p>
-            <p>Дата путешествия: <strong>{{ travel_date }}</strong></p>
-            <p>Общая стоимость: <strong>{{ total_cost }} рублей</strong></p>
-        </div>
-        <p class="text-center thank-you">**Спасибо за бронирование!**</p>
+    <div class="ticket-container">
+        <h1 class="text-center mb-4">Заказ билетов</h1>
+        <form action="{{ url_for('book_ticket', destination=destination, transport_type=transport_type, travel_date=travel_date) }}" method="post">
+            <div class="form-group">
+                <label for="ticket_count">Количество билетов:</label>
+                <input type="number" class="form-control" id="ticket_count" name="ticket_count" min="1" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Оформить заказ</button>
+        </form>
     </div>
 </body>
 </html>
+
+
 
