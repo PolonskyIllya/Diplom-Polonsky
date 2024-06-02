@@ -3,6 +3,7 @@
 <head>
     <title>Вход в систему бронирования билетов</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
             background-image: url('https://img.goodfon.ru/original/1920x1080/6/64/more-palmy-pliazh-tropiki-otdykh.jpg');
@@ -21,6 +22,7 @@
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             width: 400px;
+            position: relative;
         }
         .form-group {
             margin-bottom: 20px;
@@ -28,15 +30,25 @@
         .btn-primary {
             width: 100%;
         }
+        .cart-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: #333;
+        }
     </style>
 </head>
 <body>
     <div class="login-container">
+        <a href="{{ url_for('cart') }}" class="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+        </a>
         <h1 class="text-center mb-4">Вход в систему бронирования билетов</h1>
         {% if error %}
             <div class="alert alert-danger">{{ error }}</div>
         {% endif %}
-        <form method="post">
+        <form action="{{ url_for('login') }}" method="post">
             <div class="form-group">
                 <label for="username">Имя пользователя:</label>
                 <input type="text" id="username" name="username" class="form-control" required>

@@ -3,6 +3,7 @@
 <head>
     <title>Заказ билетов</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
             background-image: url('https://img.goodfon.ru/original/1920x1080/6/64/more-palmy-pliazh-tropiki-otdykh.jpg');
@@ -21,6 +22,7 @@
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             width: 600px;
+            position: relative;
         }
         .form-group {
             margin-bottom: 20px;
@@ -28,10 +30,20 @@
         .btn-primary {
             width: 100%;
         }
+        .cart-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: #333;
+        }
     </style>
 </head>
 <body>
     <div class="ticket-container">
+        <a href="{{ url_for('cart') }}" class="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+        </a>
         <h1 class="text-center mb-4">Заказ билетов</h1>
         <form action="{{ url_for('book_ticket', destination=destination, transport_type=transport_type, travel_date=travel_date) }}" method="post">
             <div class="form-group">
@@ -40,9 +52,12 @@
             </div>
             <button type="submit" class="btn btn-primary">Оформить заказ</button>
         </form>
+        <hr>
+        <form action="{{ url_for('add_to_cart', item_id=destination+'-'+transport_type+'-'+travel_date, item_name=destination+' '+transport_type+' '+travel_date, item_price=1000) }}" method="post">
+            <button type="submit" class="btn btn-secondary">Добавить в корзину</button>
+        </form>
     </div>
 </body>
 </html>
-
 
 

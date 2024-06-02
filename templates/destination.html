@@ -3,6 +3,7 @@
 <head>
     <title>Выбор пункта назначения</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
             background-image: url('https://img.goodfon.ru/original/1920x1080/6/64/more-palmy-pliazh-tropiki-otdykh.jpg');
@@ -21,6 +22,7 @@
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             width: 500px;
+            position: relative;
         }
         .form-group {
             margin-bottom: 20px;
@@ -28,10 +30,20 @@
         .btn-primary {
             width: 100%;
         }
+        .cart-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: #333;
+        }
     </style>
 </head>
 <body>
     <div class="destination-container">
+        <a href="{{ url_for('cart') }}" class="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+        </a>
         <h1 class="text-center mb-4">Выберите пункт назначения</h1>
         <form method="post" action="/choose_destination">
             <div class="form-group">

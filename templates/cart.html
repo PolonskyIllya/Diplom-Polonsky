@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Корзина заказов</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('https://img.goodfon.ru/original/1920x1080/6/64/more-palmy-pliazh-tropiki-otdykh.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .cart-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 600px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        .btn-primary {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="cart-container">
+        <h1 class="text-center mb-4">Корзина заказов</h1>
+        {% if cart %}
+            {% for item in cart %}
+                <div class="cart-item">
+                    <div>
+                        <h5>{{ item.name }}</h5>
+                        <p>{{ item.price }} руб. x {{ item.quantity }}</p>
+                    </div>
+                    <div>
+                        <form method="post" action="{{ url_for('remove_from_cart') }}">
+                            <input type="hidden" name="item_id" value="{{ item.id }}">
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="mt-4">
+                <h4>Итого: {{ total_price }} руб.</h4>
+                <a href="{{ url_for('checkout') }}" class="btn btn-primary">Оформить заказ</a>
+            </div>
+        {% else %}
+            <p class="text-center">Ваша корзина пуста.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
+
