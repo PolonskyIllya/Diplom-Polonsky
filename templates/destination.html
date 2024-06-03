@@ -41,7 +41,7 @@
 </head>
 <body>
     <div class="destination-container">
-        <a href="{{ url_for('cart') }}" class="cart-icon">
+        <a href="{{ url_for('my_cart') }}" class="cart-icon">
             <i class="fas fa-shopping-cart"></i>
         </a>
         <h1 class="text-center mb-4">Выберите пункт назначения</h1>
@@ -50,7 +50,7 @@
                 <label for="destination">Пункт назначения:</label>
                 <select id="destination" name="destination" class="form-control" required>
                     {% for city in resort_cities %}
-                        <option value="{{ city }}">{{ city }}</option>
+                        <option value="{{ city.name }}">{{ city.name }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -58,7 +58,7 @@
                 <label for="transport_type">Тип транспорта:</label>
                 <select id="transport_type" name="transport_type" class="form-control" required>
                     {% for transport in transport_type %}
-                        <option value="{{ transport }}">{{ transport }}</option>
+                        <option value="{{ transport.name }}">{{ transport.name }}</option>
                     {% endfor %}
                 </select>
             </div>

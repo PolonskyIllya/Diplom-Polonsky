@@ -1,13 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory
-from datetime import date, timedelta
-from models import db, User, ResortCity, TransportType
-from flask_sqlalchemy import SQLAlchemy
-from config import Config
+from flask import render_template, request, redirect, url_for, send_from_directory, flash
+from models import app, db, User, ResortCity, TransportType
 
-# db.create_all()
-app = Flask(__name__)
-app.config.from_object(Config)
-db = SQLAlchemy(app)
 
 @app.route('/static/<path:filename>')
 def serve_static(filename):
@@ -28,17 +21,27 @@ transport_types = ["Поезд", "Самолет", "Автобус"]
 # Создаем пустую корзину
 cart = []
 
+def register():
+    # username = "admin"
+    # password = "password123"
+    # user = User(username = username, password = password)
+    transport = TransportType(name="Автобус")
+    db.session.add(transport)
+    db.session.commit()
+
 @app.route('/', methods=['GET', 'POST'])
 def login():
     error = None
+    # register()
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-
-        if username in users and users[username] == password:
+        user = User.query.filter_by(username=username).first()
+        if user and user.password == password:
             return redirect(url_for('choose_destination'))
         else:
             error = 'Неверное имя пользователя или пароль. Попробуйте снова.'
+            flash(error)
 
     return render_template('login.html', error=error)
 
@@ -49,8 +52,9 @@ def choose_destination():
         transport_type = request.form['transport_type']
         travel_date = request.form['travel_date']
         return redirect(url_for('book_ticket', destination=destination, transport_type=transport_type, travel_date=travel_date))
-
-    return render_template('destination.html', resort_cities=resort_cities, transport_type=transport_types)
+    cities = db.session.query(ResortCity).all()
+    transport = db.session.query(TransportType).all()
+    return render_template('destination.html', resort_cities=cities, transport_type=transport)
 
 @app.route('/book_ticket/<destination>/<transport_type>/<travel_date>', methods=['GET', 'POST'])
 def book_ticket(destination, transport_type, travel_date):
@@ -71,8 +75,7 @@ def book_ticket(destination, transport_type, travel_date):
 @app.route('/add_to_cart', methods=['POST'])
 def add_to_cart(item_id, item_name, item_price):
     # Ваша логика для добавления товара в корзину
-    return redirect(url_for('cart'))
-
+    
     
     # Проверяем, есть ли товар в корзине
     existing_item = next((item for item in cart if item['id'] == item_id), None)
@@ -83,7 +86,7 @@ def add_to_cart(item_id, item_name, item_price):
         item = {'id': item_id, 'name': item_name, 'price': item_price, 'quantity': 1}
         cart.append(item)
     
-    return redirect(url_for('cart'))
+    return redirect(url_for('my_cart'))
 
 @app.route('/remove_from_cart', methods=['POST'])
 def remove_from_cart():
@@ -95,10 +98,10 @@ def remove_from_cart():
             cart.remove(item)
             break
     
-    return redirect(url_for('cart'))
+    return redirect(url_for('my_cart'))
 
 @app.route('/cart')
-def cart():
+def my_cart():
     total_price = sum(item['price'] * item['quantity'] for item in cart)
     return render_template('cart.html', cart=cart, total_price=total_price)
 
