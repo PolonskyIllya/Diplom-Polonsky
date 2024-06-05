@@ -21,6 +21,22 @@ transport_types = ["Поезд", "Самолет", "Автобус"]
 # Создаем пустую корзину
 cart = []
 
+@app.route('/')
+def index():
+    return redirect(url_for('register'))
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = User(username=username, password=password)
+        db.session.add(user)
+        # db.session.commit()
+        flash('Вы успешно зарегистрировались!', 'success')
+        return redirect(url_for('login'))
+    return render_template('register.html')
+
 def register():
     # username = "admin"
     # password = "password123"
@@ -112,4 +128,3 @@ def checkout():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
