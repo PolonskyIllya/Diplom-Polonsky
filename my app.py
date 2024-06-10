@@ -32,7 +32,7 @@ def register():
         password = request.form['password']
         user = User(username=username, password=password)
         db.session.add(user)
-        # db.session.commit()
+        db.session.commit()
         flash('Вы успешно зарегистрировались!', 'success')
         return redirect(url_for('login'))
     return render_template('register.html')
@@ -45,7 +45,7 @@ def register():
     db.session.add(transport)
     db.session.commit()
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
     # register()
